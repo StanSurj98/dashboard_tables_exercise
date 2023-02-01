@@ -1,1 +1,16 @@
+table, td {
+  border: 1px solid #242424;
+  text-align: center;
+}
 
+thead {
+  background-color: goldenrod;
+}
+
+th {
+  width: 8rem;
+}
+
+tr {
+  height: 2rem;
+}
