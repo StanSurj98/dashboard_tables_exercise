@@ -1,13 +1,13 @@
-// Row Component (Pull later)
+import React from "react";
+import Cell from "../Cell";
+
 const Row = ({ columnData, rowLabel }) => {
   return (
     <tr>
-      {/* Some sort of row # identifier later */}
-      <th>R{rowLabel + 1}</th>
-      {columnData.map((cell) => (
-        <td>
-          <input type={"text"} defaultValue={cell.value} />
-        </td>
+      <th scope="row">R{rowLabel + 1}</th>
+      {/* O(N) - Maps over 1D array */}
+      {columnData.map(({value}) => (
+        <Cell cellData={value}/>
       ))}
     </tr>
   );
