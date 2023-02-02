@@ -1,9 +1,14 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
+import Row from './components/Row';
+
+// Test Data
+const oneRowTest = [{ value: "" }, { value: "" }, { value: "" }];
+const multiRowTest = [oneRowTest, oneRowTest, oneRowTest];
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [rowData, setRowData] = useState(multiRowTest);
+
 
   return (
     <div className="App">
@@ -14,26 +19,17 @@ function App() {
             <th>E1</th>
             <th>E2</th>
             <th>E3</th>
-            <th>E4</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>R1</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td>R2</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-          </tr>
+          {rowData.map((col, index) => (
+            <Row columnData={col} rowLabel={index}></Row>
+          ))}
         </tbody>
       </table>
+      <button type="submit" onClick={() => setRowData(prev => [...prev, oneRowTest])}>
+        Add Row
+      </button>
     </div>
   );
 }
