@@ -1,9 +1,10 @@
 import React from "react";
 
-const Cell = ({cellData}) => {
+const Cell = ({cellValue}) => {
+  console.log(`Cell Data: `, cellValue)
   return (
     <td>
-      <input type={"text"} defaultValue={cellData} />
+      <input type={"text"} defaultValue={cellValue} />
     </td>
   );
 };

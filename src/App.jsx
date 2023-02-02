@@ -4,11 +4,11 @@ import Row from "./components/Row";
 
 // Test Data
 // const oneRowTest = [{ value: null }, { value: null }, { value: null }];
-const NUM_OF_COLS = 7;
+const NUM_OF_COLS = 7; // Can make this dynamic in future according to user input or something
 
 function App() {
   const [multiRowData, setMultiRowData] = useState([
-    Array(NUM_OF_COLS).fill({ value: null }),
+    Array(NUM_OF_COLS).fill({ cellValue: null }),
   ]);
   const [filledCellCount, setFilledCellCount] = useState(0);
 
@@ -19,7 +19,7 @@ function App() {
     // Update state -> spread prev data and append a NEW array at the same # of cells as previous with default value: null
     setMultiRowData((prev) => [
       ...prev,
-      Array(prev[0].length).fill({ value: null }),
+      Array(prev[0].length).fill({ cellValue: null }),
     ]);
     // console.log(multiRowData)
   };
@@ -28,7 +28,7 @@ function App() {
     <div className="App">
       <p>Number of Cells Filled: {filledCellCount}</p>
       <button type="submit" onClick={(e) => handleAddRow(e)}>
-        Add Row
+        Add New Row
       </button>
       <table>
         <thead>
@@ -46,8 +46,8 @@ function App() {
         </thead>
         <tbody>
           {/* O(N^2) - Maps over 2D array*/}
-          {multiRowData.map((col, index) => (
-            <Row columnData={col} rowLabel={index}></Row>
+          {multiRowData.map((rowData, index) => (
+            <Row rowData={rowData} rowLabel={index}></Row>
           ))}
         </tbody>
       </table>
