@@ -8,7 +8,7 @@ const NUM_OF_COLS = 7; // Can make this dynamic in future according to user inpu
 
 function App() {
   const [multiRowData, setMultiRowData] = useState([
-    Array(NUM_OF_COLS).fill({ cellValue: null }),
+    Array(NUM_OF_COLS).fill({ cellValue: "" }),
   ]);
   const [filledCellCount, setFilledCellCount] = useState(0);
 
@@ -16,12 +16,34 @@ function App() {
   const handleAddRow = (e) => {
     e.preventDefault();
     // console.log(e);
-    // Update state -> spread prev data and append a NEW array at the same # of cells as previous with default value: null
+    // Update state -> spread prev data and append a NEW array at the same # of cells as previous with default value: ""
     setMultiRowData((prev) => [
       ...prev,
-      Array(prev[0].length).fill({ cellValue: null }),
+      Array(prev[0].length).fill({ cellValue: "" }),
     ]);
     // console.log(multiRowData)
+  };
+
+  const handleCellChange = (rowIndex, cellIndex, newValue) => {
+    setMultiRowData((prevRows) => {
+      // Need to copy prev so it's not stale
+      const newRows = [...prevRows];
+      // Update the old value with new e.target.value
+      newRows[rowIndex][cellIndex] = { cellValue: newValue };
+      // Find prevValue for toggling counters
+      const prevValue = newRows[rowIndex][cellIndex].cellValue;
+      
+      
+      // ** BUG ** keeps changing counters on multiple onChanges
+      // Toggle counters if prevValue is truthy/falsey
+      // if (prevValue) {
+      //   setFilledCellCount(() => filledCellCount + 1)
+      // } else if (!prevValue) {
+      //   setFilledCellCount(() => filledCellCount - 1)
+      // }
+
+      return newRows
+    });
   };
 
   return (
@@ -35,19 +57,24 @@ function App() {
           <tr>
             <th></th>
             {/* Ugly will do for now hahah */}
+            <th scope="col">E0</th>
             <th scope="col">E1</th>
             <th scope="col">E2</th>
             <th scope="col">E3</th>
             <th scope="col">E4</th>
             <th scope="col">E5</th>
             <th scope="col">E6</th>
-            <th scope="col">E7</th>
           </tr>
         </thead>
         <tbody>
           {/* O(N^2) - Maps over 2D array*/}
-          {multiRowData.map((rowData, index) => (
-            <Row rowData={rowData} rowLabel={index}></Row>
+          {multiRowData.map((rowData, rowIndex) => (
+            <Row
+              key={rowIndex}
+              rowData={rowData}
+              rowIndex={rowIndex}
+              handleCellChange={handleCellChange}
+            ></Row>
           ))}
         </tbody>
       </table>
