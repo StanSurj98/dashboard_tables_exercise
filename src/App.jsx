@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import "./App.css";
 import Row from "./components/Row";
@@ -36,15 +37,32 @@ function App() {
       
       // ** BUG ** keeps changing counters on multiple onChanges
       // Toggle counters if prevValue is truthy/falsey
-      // if (prevValue) {
-      //   setFilledCellCount(() => filledCellCount + 1)
-      // } else if (!prevValue) {
-      //   setFilledCellCount(() => filledCellCount - 1)
-      // }
+      if (prevValue) {
+        setFilledCellCount(() => filledCellCount + 1)
+      } else if (!prevValue) {
+        setFilledCellCount(() => filledCellCount - 1)
+      }
 
       return newRows
     });
   };
+
+  // ** BUG ** still same problem as above...
+  // O(N^2) - 2D Array counting...
+  // const countCells = (multiRowData) => {
+  //   for (let r = 0; r < multiRowData.length; r++) {
+  //     for (let c = 0; c < multiRowData[r].length; c++) {
+  //       if (multiRowData[r][c].cellValue) {
+  //         setFilledCellCount(() => filledCellCount + 1)
+  //       }
+  //     }
+  //   }
+  // }
+  
+
+  // useEffect(() => {
+  //   countCells(multiRowData)
+  // }, [multiRowData])
 
   return (
     <div className="App">

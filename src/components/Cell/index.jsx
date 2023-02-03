@@ -1,11 +1,11 @@
 import React from "react";
 
 const Cell = ({ cellValue, cellIndex, rowIndex, handleCellChange }) => {
-  console.log({
-    Value: cellValue,
-    "Row Index": rowIndex,
-    "Cell Index": cellIndex,
-  });
+  // console.log({
+  //   Value: cellValue,
+  //   "Row Index": rowIndex,
+  //   "Cell Index": cellIndex,
+  // });
   return (
     <td>
       <input
