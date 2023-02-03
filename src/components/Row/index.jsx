@@ -1,13 +1,15 @@
 import React from "react";
 import Cell from "../Cell";
 
-const Row = ({ columnData, rowLabel }) => {
+const Row = ({ rowData, rowIndex, handleCellChange }) => {
+  // console.log(`rowData: `, rowData)
   return (
     <tr>
-      <th scope="row">R{rowLabel + 1}</th>
+      <th scope="row">{`R${rowIndex}`}</th>
+
       {/* O(N) - Maps over 1D array */}
-      {columnData.map(({value}) => (
-        <Cell cellData={value}/>
+      {rowData.map(({ cellValue }, cellIndex) => (
+        <Cell key={cellIndex} cellValue={cellValue} cellIndex={cellIndex} rowIndex={rowIndex} handleCellChange={handleCellChange}/>
       ))}
     </tr>
   );
